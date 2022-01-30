@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os 
+
+ENV = os.environ.get('ENVIRONMENT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-&uvih-n3_d7wazs+v32-0!2t^!1e8@fg1t99b_grx(ak4!3#!n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['test.chrisbay.net', 'localhost']
 
 
 # Application definition
@@ -37,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'dashboard',
 ]
+
+# Used by social_django 
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,11 +54,31 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'mowindashboard.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'mowindashboard.urls'
 
 TEMPLATES = [
+    {
+        'NAME': 'site_templates',
+        'BACKEND': 'django_jinja.backend.Jinja2',
+        'APP_DIRS': True,
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
+        'OPTIONS': {
+            'match_extension': '.html',
+            'app_dirname': 'templates',
+            'environment': 'mowindashboard.jinja2.environment',
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+            ]
+        },
+    },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
@@ -62,6 +89,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -124,3 +153,27 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = '/login/google-oauth2/'
+LOGIN_ERROR_URL = '/login-error/'
+HOME_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['MOWIN_OAUTH2_CLIENT']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['MOWIN_OAUTH2_SECRET']
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/request-access'
+
+LOGIN_EXEMPT_URLS = [
+    LOGIN_ERROR_URL.lstrip('/'),
+    'complete/google-oauth2/',
+    'admin/*',
+]
+
+AUTH_USER_MODEL = 'dashboard.DashboardUser'
+SOCIAL_AUTH_USER_MODEL = 'dashboard.DashboardUser'
