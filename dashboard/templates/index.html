@@ -1,1 +1,5 @@
-<h1>Home</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{{ url('social:begin', backend='google-oauth2') }}">Log In</a>
+{% endblock %}

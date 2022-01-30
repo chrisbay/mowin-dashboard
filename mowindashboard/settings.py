@@ -70,7 +70,6 @@ TEMPLATES = [
         'OPTIONS': {
             'match_extension': '.html',
             'app_dirname': 'templates',
-            'environment': 'mowindashboard.jinja2.environment',
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
