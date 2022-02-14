@@ -1,0 +1,23 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+
+{% if perms.dashboard.view_dashboard %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <!-- <iframe id="dashboard" src="https://datastudio.google.com/embed/reporting/e92b30d8-d214-4d29-8aa1-8002b78e8a1c/page/FxgPB" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+        <iframe style="width:67vw; height: 100vh;" src="https://datastudio.google.com/embed/reporting/e92b30d8-d214-4d29-8aa1-8002b78e8a1c/page/FxgPB" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+    <div class="col-2"></div>
+</div>
+{% else %}
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+            You have not yet been approved to view the dashboard.
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
