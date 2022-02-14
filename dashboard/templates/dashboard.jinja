@@ -4,12 +4,16 @@
 
 {% if perms.dashboard.view_dashboard %}
 <div class="row">
+    {% if request.user_agent.is_mobile %}
+        mobile
+    {% else %}
     <div class="col-2"></div>
     <div class="col-8">
         <!-- <iframe id="dashboard" src="https://datastudio.google.com/embed/reporting/e92b30d8-d214-4d29-8aa1-8002b78e8a1c/page/FxgPB" frameborder="0" style="border:0" allowfullscreen></iframe> -->
         <iframe style="width:67vw; height: 100vh;" src="https://datastudio.google.com/embed/reporting/e92b30d8-d214-4d29-8aa1-8002b78e8a1c/page/FxgPB" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
     <div class="col-2"></div>
+    {% endif %}
 </div>
 {% else %}
 <div class="row mt-2">
