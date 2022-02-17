@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-&uvih-n3_d7wazs+v32-0!2t^!1e8@fg1t99b_grx(ak4!3#!n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['test.chrisbay.net', 'localhost']
+ALLOWED_HOSTS = ['test.chrisbay.net', 'localhost', 'dashboard.sharedroots.org', 'mowin-dashboard.herokuapp.com']
 
 
 # Application definition
