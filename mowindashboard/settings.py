@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os 
+import django_heroku
 
 ENV = os.environ.get('ENVIRONMENT')
 
@@ -180,3 +181,6 @@ LOGIN_EXEMPT_URLS = [
 
 AUTH_USER_MODEL = 'dashboard.DashboardUser'
 SOCIAL_AUTH_USER_MODEL = 'dashboard.DashboardUser'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
