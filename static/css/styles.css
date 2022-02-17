@@ -19,6 +19,8 @@
 
 #hero-img {
     width: 80%;
+    display: block;
+    margin: 0 auto;
 }
 
 #home-card .card-body {
