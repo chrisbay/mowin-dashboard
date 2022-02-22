@@ -186,6 +186,7 @@ LOGIN_EXEMPT_URLS = [
     LOGIN_ERROR_URL.lstrip('/'),
     'complete/google-oauth2/',
     'admin/*',
+    'privacy',
 ]
 
 AUTH_USER_MODEL = 'dashboard.DashboardUser'
