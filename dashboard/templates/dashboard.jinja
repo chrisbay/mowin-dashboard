@@ -28,12 +28,12 @@
     <main role="main" style="height: 100%">
         <div class="container-fluid" style="height: 100%; padding-top: 55px;">
             {% if perms.dashboard.view_dashboard %}
-            <div class="row" style="height: 100%; ">
-                <div class="col-2"></div>
-                <div class="col-8">
-                    <iframe style="width:67vw; height: 100%;" src="https://datastudio.google.com/embed/reporting/7e13fbf1-ce22-419b-9a69-6453da671d29/page/FxgPB" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <div id="dashboard-row" class="row" style="height: 100%; text-align: center;">
+                <div class="col-12">
+                    <div id="iframe-wrapper">
+                        <iframe style="width: 100%; height: 100%;" src="https://datastudio.google.com/embed/reporting/7e13fbf1-ce22-419b-9a69-6453da671d29/page/FxgPB" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
                 </div>
-                <div class="col-2"></div>
             </div>
             {% else %}
             <div class="row mt-2">
