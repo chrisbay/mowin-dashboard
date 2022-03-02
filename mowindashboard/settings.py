@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os 
+import django_heroku
 
 ENV = os.environ.get('ENVIRONMENT')
 
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-&uvih-n3_d7wazs+v32-0!2t^!1e8@fg1t99b_grx(ak4!3#!n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['test.chrisbay.net', 'localhost']
+ALLOWED_HOSTS = ['test.chrisbay.net', 'localhost', 'dashboard.sharedroots.org', 'mowin-dashboard.herokuapp.com']
 
 
 # Application definition
@@ -148,6 +149,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
@@ -169,8 +176,11 @@ LOGIN_ERROR_URL = '/login-error/'
 HOME_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['MOWIN_OAUTH2_CLIENT']
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['MOWIN_OAUTH2_SECRET']
+if 'MOWIN_OAUTH2_CLIENT' in os.environ:
+    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['MOWIN_OAUTH2_CLIENT']
+
+if 'MOWIN_OAUTH2_SECRET' in os.environ:
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['MOWIN_OAUTH2_SECRET']
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard'
 
@@ -178,7 +188,12 @@ LOGIN_EXEMPT_URLS = [
     LOGIN_ERROR_URL.lstrip('/'),
     'complete/google-oauth2/',
     'admin/*',
+    'privacy',
 ]
 
 AUTH_USER_MODEL = 'dashboard.DashboardUser'
 SOCIAL_AUTH_USER_MODEL = 'dashboard.DashboardUser'
+
+if ENV != 'DEVELOPMENT':
+    # Activate Django-Heroku.
+    django_heroku.settings(locals())

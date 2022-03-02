@@ -6,3 +6,6 @@ class HomeView(TemplateView):
 
 class DashboardView(TemplateView):
     template_name = "dashboard.jinja"
+
+class PrivacyView(TemplateView):
+    template_name = "privacy.jinja"
