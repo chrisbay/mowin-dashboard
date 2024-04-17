@@ -104,11 +104,12 @@ WSGI_APPLICATION = 'mowindashboard.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {}
+DATABASES = {
+    'ENGINE': 'django.db.backends.postgresql'
+}
 
 if ENV == 'DEVELOPMENT':
     DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql',
         'OPTIONS': {
             'service': 'appdb',
             'passfile': '.mowin_pgpass',
