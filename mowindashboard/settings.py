@@ -105,19 +105,19 @@ WSGI_APPLICATION = 'mowindashboard.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'ENGINE': 'django.db.backends.postgresql'
-}
-
-if ENV == 'DEVELOPMENT':
-    DATABASES['default'] = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
         'OPTIONS': {
             'service': 'appdb',
             'passfile': '.mowin_pgpass',
         },
     }
-else:
+}
+
+if ENV != 'DEVELOPMENT':
     import dj_database_url
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES['default'].update(dj_database_url.config(conn_max_age=600, ssl_require=True))
+
 
 
 # Password validation
