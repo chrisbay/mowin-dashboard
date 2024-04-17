@@ -106,15 +106,17 @@ WSGI_APPLICATION = 'mowindashboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'OPTIONS': {
-            'service': 'appdb',
-            'passfile': '.mowin_pgpass',
-        },
+        'ENGINE': 'django.db.backends.postgresql'
     }
 }
 
-if ENV != 'DEVELOPMENT':
+if ENV == 'DEVELOPMENT':
+    DATABASES['default'].update({'OPTIONS': {
+            'service': 'appdb',
+            'passfile': '.mowin_pgpass',
+        }
+    })
+else:
     import dj_database_url
     DATABASES['default'].update(dj_database_url.config(conn_max_age=600, ssl_require=True))
 
