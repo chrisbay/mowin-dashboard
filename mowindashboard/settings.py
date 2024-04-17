@@ -119,7 +119,6 @@ if ENV == 'DEVELOPMENT':
 else:
     import dj_database_url
     db_config = dj_database_url.config(conn_max_age=600, ssl_require=True)
-    print(db_config)
     DATABASES['default'].update(db_config)
 
 
