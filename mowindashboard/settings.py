@@ -181,8 +181,10 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = '/login/google-oauth2/'
 LOGIN_ERROR_URL = '/login-error/'
-HOME_URL = '/'
+HOME_URL = '/dashboard'
+LANDING_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
 
 if 'MOWIN_OAUTH2_CLIENT' in os.environ:
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['MOWIN_OAUTH2_CLIENT']
