@@ -42,15 +42,15 @@
                 
 
                 {% if request.user_agent.is_mobile %}
-                    <div class="col-12">
+                <div class="col-12">
                     <div id="iframe-wrapper">
-                        <iframe style="width: 100%; height: 100%;" src="https://datastudio.google.com/embed/reporting/4eaee5ee-8356-4527-ae74-67cc33fd7078/page/FxgPB" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <p>Mobile devices are currently not supported. Please check back later, or view on a desktop device.</p>
                     </div>
                 </div>
                 {% else %}
                 <div class="col-12">
                     <div id="iframe-wrapper">
-                        <iframe style="width: 100%; height: 100%;" src="https://datastudio.google.com/embed/reporting/802f85dd-5a71-466a-a8af-3e16b379f9e6/page/FxgPB" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <iframe style="width: 100%; height: 100%;" src="https://lookerstudio.google.com/embed/reporting/1b5513ca-00c1-4369-9708-0f35a2acb803/page/FxgPB" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
                     </div>
                 </div>
                 {% endif %}
